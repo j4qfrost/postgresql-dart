@@ -11,7 +11,9 @@ class _TransactionProxy extends Object
     _beginQuery = Query<int>('BEGIN', {}, _connection, this,
         onlyReturnAffectedRowCount: true);
 
-    _beginQuery.future.then(startTransaction).catchError((err, StackTrace st) {
+    _beginQuery.future
+        .then(startTransaction)
+        .catchError((Object err, StackTrace st) {
       Future(() {
         _completer.completeError(err as Object, st);
       });

@@ -9,6 +9,16 @@ import 'package:test/test.dart';
 import 'package:postgres/postgres.dart';
 
 void main() {
+  // These tests are disabled, as we'd need to setup ci/pg_hba.conf into the CI
+  // postgres instance first.
+  // TODO: re-enable these tests after pg_hba.conf is used
+  if (Platform.environment.containsKey('GITHUB_ACTION')) {
+    test('NO CONNECTION TEST IS RUNNING.', () {
+      // no-op
+    });
+    return;
+  }
+
   group('Connection lifecycle', () {
     late PostgreSQLConnection conn;
 
@@ -95,10 +105,11 @@ void main() {
           username: 'darttrust');
       await conn.open();
 
+      final rs = await conn.query('select 1');
       final errors = [];
       final catcher = (e) {
         errors.add(e);
-        return null;
+        return rs;
       };
       final futures = [
         conn.query('select 1', allowReuse: false).catchError(catcher),
@@ -121,11 +132,12 @@ void main() {
       conn = PostgreSQLConnection('localhost', 5432, 'dart_test',
           username: 'darttrust', useSSL: true);
       await conn.open();
+      final rs = await conn.query('select 1');
 
       final errors = [];
       final catcher = (e) {
         errors.add(e);
-        return null;
+        return rs;
       };
       final futures = [
         conn.query('select 1', allowReuse: false).catchError(catcher),

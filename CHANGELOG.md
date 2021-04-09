@@ -1,8 +1,27 @@
 # Changelog
 
+## 2.3.1
+
+- Added support for types `varchar`, `point`, `integerArray`, `doubleArray`, `textArray` and `jsonArray`.
+  (Thanks to [schultek](https://github.com/schultek), [#3](https://github.com/isoos/postgresql-dart/pull/3))
+
 ## 2.3.0
 
-- Migrate to null safety
+- Finalized null-safe release.
+
+## 2.3.0-null-safety.2
+
+- Fixing query API optional parameters.
+
+## 2.3.0-null-safety.1
+
+- Updated public API to always return non-nullable results.
+- **BREAKING CHANGE**: unknown mapped table name is no longer `null`, it is empty string (`''`).
+
+## 2.3.0-null-safety.0
+
+- Migrate to null safety. (Thanks to [j4qfrost](https://github.com/j4qfrost), [#153](https://github.com/stablekernel/postgresql-dart/pull/153)).
+- Documentation fix (by [saward](https://github.com/saward)).
 
 ## 2.2.0
 
